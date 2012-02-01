@@ -1,9 +1,12 @@
+#This runs first as soon as someone connects to the server
+#It tells the game to init(ialize)!
+#And then it sets it all up!
 exports.init = ->
     g = $('canvas')[0].getContext '2d'
     g.canvas.width = window.innerWidth
     g.canvas.height = window.innerHeight
-    g.fillStyle = '#555'
-    g.fillText 'Hello World!', g.canvas.width/2, g.canvas.height/2
+    g.fillStyle = '#333'
+    g.fillText 'Hello James!', g.canvas.width/2, g.canvas.height/2
 #Classes without mains!
 class Player
     #These are variables
