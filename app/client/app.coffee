@@ -12,8 +12,8 @@ class Player
     team: '0f0'#green
     income: 10
     name: 'anon'
-    x: 0
-    y: 0
+    x: .5
+    y: .5
     w: .05
     h: .05
     # @ refers to a class variable
@@ -23,15 +23,10 @@ class Player
         Game.g.fillStyle = @team
         Game.relativeFillRect @x,@y,@w,@h
     move: ->
-        switch SS.client.keyboard.key
-            when 'up'
-                @y--
-            when 'down'
-                @y++
-            when 'right'
-                @x++
-            when 'left'
-                @x--
+        @y-=@h if SS.client.keyboard.up
+        @y+=@h if SS.client.keyboard.down
+        @x-=@w if SS.client.keyboard.left
+        @x+=@w if SS.client.keyboard.right
 class Creeps
     hp: null
     power: null
@@ -55,6 +50,8 @@ class Game #static, no new Game(), everything is Game.property or @property
         Game.g.canvas.width = window.innerWidth
         Game.g.canvas.height = window.innerHeight
     @draw: ->
+        @g.fillStyle = '000'
+        @g.fillRect 0,0,@relativeX(1),@relativeY(1)
         player.draw() for player in @players
     @move: ->
         player.move() for player in @players
