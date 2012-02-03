@@ -1,4 +1,7 @@
+#When a key is pressed down we grab the keyboard event in e
 exports.keyDown = (e)->
+    #Set different properties based on the key pressed
+    #These can be accessed by any other class with SS.client.keyboard.PROPERTY
     switch e.keyCode
         when 39
             exports.right=true

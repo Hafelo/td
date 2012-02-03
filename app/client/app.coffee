@@ -18,11 +18,16 @@ class Player
     h: .05
     # @ refers to a class variable
     # @name refers to the class player's name
+    # when new Player('name') is called, then @name is automatically set to 'name'
     constructor:(@name)->
+    #When a player should draw itself, call this.
+    #Players won't actually be drawn when the game is finished, but maybe their stats will be
     draw: (g)->
         Game.g.fillStyle = @team
         Game.relativeFillRect @x,@y,@w,@h
     move: ->
+        #SS.client.keyboard knows which keys are up or down
+        #When we press up, the y position of this player will move up a distance equal to its height
         @y-=@h if SS.client.keyboard.up
         @y+=@h if SS.client.keyboard.down
         @x-=@w if SS.client.keyboard.left
@@ -44,17 +49,24 @@ class Game #static, no new Game(), everything is Game.property or @property
     @towers: null
     @mouseX: .5
     @mouseY: .5
+#Get the exact pixel position on the screen from a percentage.
+#If screen is 50 pixels wide, then .5 (aka 50%) would be 25 pixels
+#This should scale everything so we can be full screen on any device
     @relativeX: (x)-> x * @g.canvas.width
     @relativeY: (y)-> y * @g.canvas.height
     @resize: ->
         Game.g.canvas.width = window.innerWidth
         Game.g.canvas.height = window.innerHeight
     @draw: ->
+        #Draw a solid black rectangle over the whole screen to refresh it
         @g.fillStyle = '000'
         @g.fillRect 0,0,@relativeX(1),@relativeY(1)
-        player.draw() for player in @players
+        #Draw all the players
+        player.draw(@g) for player in @players
     @move: ->
+        #Allow the players to move themselves
         player.move() for player in @players
+    #Fill a rectangle with all percentage values
     @relativeFillRect:(x,y,w,h)->
         x=Game.relativeX x
         y=Game.relativeY y
