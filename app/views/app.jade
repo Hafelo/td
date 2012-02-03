@@ -1,5 +1,5 @@
 head
   != SocketStream
   title td
-body
+body(onKeyDown='return SS.client.keyboard.keyDown(event)', onKeyUp='return SS.client.keyboard.keyUp(event)')
   canvas#canvas
