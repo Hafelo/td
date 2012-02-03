@@ -12,8 +12,8 @@ class Player
     team: '0f0'#green
     income: 10
     name: 'anon'
-    x: .5
-    y: .5
+    x: .05
+    y: .05
     w: .05
     h: .05
     # @ refers to a class variable
