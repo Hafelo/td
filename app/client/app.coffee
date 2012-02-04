@@ -9,13 +9,13 @@ class Player
     #is like ex: int
     hp: 100
     gold: 10
-    team: '000'#black
+    team: '0f0'#green
     income: 10
     name: 'anon'
-    x: .5
-    y: .5
-    w: .005
-    h: .005
+    x: .05
+    y: .05
+    w: .05
+    h: .05
     # @ refers to a class variable
     # @name refers to the class player's name
     # when new Player('name') is called, then @name is automatically set to 'name'
@@ -58,8 +58,8 @@ class Game #static, no new Game(), everything is Game.property or @property
         Game.g.canvas.width = window.innerWidth
         Game.g.canvas.height = window.innerHeight
     @draw: ->
-        #Draw a solid green rectangle over the whole screen to refresh it
-        @g.fillStyle = '0f0'
+        #Draw a solid black rectangle over the whole screen to refresh it
+        @g.fillStyle = '000'
         @g.fillRect 0,0,@relativeX(1),@relativeY(1)
         #Draw all the players
         player.draw(@g) for player in @players
