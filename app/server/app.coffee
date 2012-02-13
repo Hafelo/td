@@ -13,13 +13,21 @@ every 1000, ->
 exports.actions =
     init: (cb) ->
         players[@session.id] = new Player()
+        players[@session.id].hp = 100
+        players[@session.id].gold = 10
         players[@session.id].team = 'green'
+        players[@session.id].income = 10
+        players[@session.id].name = 'anon'
+        players[@session.id].speed = .01
+        players[@session.id].x = .05
+        players[@session.id].y = .05
+        players[@session.id].w = .05
+        players[@session.id].h = .05
         testPlayer = @session.id
     moveUp: (cb)-> players[@session.id].y -= players[@session.id].speed
     moveDown: (cb)-> players[@session.id].y += players[@session.id].speed
     moveLeft: (cb)-> players[@session.id].x -= players[@session.id].speed
     moveRight: (cb)-> players[@session.id].x += players[@session.id].speed
-    getPlayer: (cb) -> cb players[@session.id]
 
 #Classes without mains!
 class Player
