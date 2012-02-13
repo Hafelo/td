@@ -5,33 +5,27 @@ exports.init = -> Game.init()
 
 #Classes without mains!
 class Player
-    #These are variables
-    #is like ex: int
-    hp: 100
-    gold: 10
-    team: '0f0'#green
-    income: 10
-    name: 'anon'
-    x: .05
-    y: .05
-    w: .05
-    h: .05
-    # @ refers to a class variable
-    # @name refers to the class player's name
-    # when new Player('name') is called, then @name is automatically set to 'name'
-    constructor:(@name)->
+    team: 'red'
     #When a player should draw itself, call this.
     #Players won't actually be drawn when the game is finished, but maybe their stats will be
     draw: (g)->
-        Game.g.fillStyle = @team
-        Game.relativeFillRect @x,@y,@w,@h
+        SS.server.app.getPlayer (player)->
+            console.log player.team
+            console.log player.x
+            console.log player.y
+            Game.g.fillStyle = player.team
+            Game.relativeFillRect player.x,player.y,player.w,player.h
     move: ->
         #SS.client.keyboard knows which keys are up or down
         #When we press up, the y position of this player will move up a distance equal to its height
-        @y-=@h if SS.client.keyboard.up
-        @y+=@h if SS.client.keyboard.down
-        @x-=@w if SS.client.keyboard.left
-        @x+=@w if SS.client.keyboard.right
+        if SS.client.keyboard.up
+            SS.server.app.moveUp()
+        if SS.client.keyboard.down
+            SS.server.app.moveDown()
+        if SS.client.keyboard.left
+            SS.server.app.moveLeft()
+        if SS.client.keyboard.right
+            SS.server.app.moveRight()
 class Creeps
     hp: null
     power: null
@@ -85,11 +79,12 @@ class Game #static, no new Game(), everything is Game.property or @property
     #init is typically called first
     #we will call it later
     @init: ->
+        SS.server.app.init()
         @g = $('canvas')[0].getContext '2d' #2d graphics object, just like java
         window.onresize = @resize
         @resize()
-        every 50, => @draw()
-        every 50, => @move()
+        every 500, => @draw()
+        every 500, => @move()
         #Arrray: list of vallues [1, 2, 'asdf', 56.9]
         #this array has 4 values
         #push adds a value to the end of the array
