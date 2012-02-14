@@ -21,7 +21,15 @@ class Player
         @y = .05
         @w = .05
         @h = .05
-    up:-> @y -= @speed
-    down:-> @y += @speed
-    left:-> @x -= @speed
-    right:-> @x += @speed
+    up:->
+        @y -= @speed
+        @y = 0 if @y < 0
+    down:->
+        @y += @speed
+        @y = 0.95 if @y > 0.95
+    left:->
+        @x -= @speed
+        @x = 0 if @x < 0
+    right:->
+        @x += @speed
+        @x = 0.95 if @x > 0.95
