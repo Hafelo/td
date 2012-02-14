@@ -33,3 +33,8 @@ class Player
     right:->
         @x += @speed
         @x = 1-@h if @x > 1-@h
+    collides: (players)->
+        @x = .05 if @x == players.x
+        @y = .05 if @y == players.y
+        @x = .05 if @x-@h == players.x-players.h
+        @y = .05 if @y-@w == players.y-players.h
