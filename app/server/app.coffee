@@ -26,10 +26,10 @@ class Player
         @y = 0 if @y < 0
     down:->
         @y += @speed
-        @y = 0.95 if @y > 0.95
+        @y = 1-@w if @y > 1-@w
     left:->
         @x -= @speed
         @x = 0 if @x < 0
     right:->
         @x += @speed
-        @x = 0.95 if @x > 0.95
+        @x = 1-@h if @x > 1-@h
