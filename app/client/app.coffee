@@ -16,7 +16,6 @@ Game =
         #Draw all the players
         for key of @players
             player = @players[key]
-            console.log player
             @g.fillStyle = player.team
             @relativeFillRect player.x,player.y,player.w,player.h
     move: ->
@@ -36,14 +35,15 @@ Game =
         h=Game.relativeY h
         @g.fillRect x,y,w,h
     init: ->
-        SS.server.app.init()
+        SS.server.app.init (id)=>
+            @id = id
         SS.events.on 'players', (players) => @players = players
 
         @g = $('canvas')[0].getContext '2d' #2d graphics object, just like java
         window.onresize = @resize
         @resize()
-        every 50, => @draw()
-        every 50, => @move()
+        every 20, => @draw()
+        every 20, => @move()
 
 after = (ms, cb) -> setTimeout cb, ms
 every = (ms, cb) -> setInterval cb, ms

@@ -1,38 +1,42 @@
 players = {}
+
 every = (ms, cb) -> setInterval cb, ms
-every 50, -> SS.publish.broadcast 'players', players
+every 20, -> SS.publish.broadcast 'players', players
+
+SS.events.on 'client:disconnect', (session) ->
+    delete players[session.id]
 
 exports.actions =
-    init: (cb) -> players[@session.id] = new Player() unless players[@session.id]?
+    init: (cb) ->
+        players[@session.id] = new Player()
+        cb @session.id
     up: (cb)-> players[@session.id].up()
     down: (cb)-> players[@session.id].down()
     left: (cb)-> players[@session.id].left()
     right: (cb)-> players[@session.id].right()
+    color: (team, cb)-> players[@session.id].team = team
 
 class Player
     constructor:->
-        @hp = 100
-        @gold = 10
-        @team = 'green'
-        @income = 10
-        @name = 'anon'
-        @speed = .01
-        @x = .05
-        @y = .05
-        @w = .05
-        @h = .05
+        @team = ['lime','blue','white','red','orange','yellow','purple','brown'][Math.floor Math.random()*8]
+        @speed = Math.random()*.05+.001
+        @x = Math.random()
+        @y = Math.random()
+        @w = Math.random()*.3+.001
+        @h = Math.random()*.3+.001
+        @points = 0
     up:->
         @y -= @speed
-        @y = 0 if @y < 0
+        @y = 1 if @y < -@h #go off the top, appear at the bottom
     down:->
         @y += @speed
-        @y = 1-@h if @y > 1-@h
+        @y = -@h if @y > 1 #go off the bottom, appear at the top
     left:->
         @x -= @speed
-        @x = 0 if @x < 0
+        @x = 1 if @x < -@w #go off the left, appear at the right
     right:->
         @x += @speed
-        @x = 1-@w if @x > 1-@w
+        @x = -@w if @x > 1 #go off the right, appear at the left
     collides: (players)->
         return true if @x > (player.x + player.h)and @x < (player.x - player.h) or @x-@h < (player.x + player.h)and @x > (player.x - player.h)
         return false if @x < (player.x + player.h)and @x > (player.x - player.h) or @x-@h > (player.x + player.h)and @x < (player.x - player.h)
