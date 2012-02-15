@@ -34,7 +34,7 @@ class Player
         @x += @speed
         @x = 1-@h if @x > 1-@h
     collides: (players)->
-        return true if @x is (player.x + player.h)and(player.x - player.h) or @x-@h is (player.x + player.h)and(player.x - player.h) true
-        return false if @x is not (player.x + player.h)and(player.x - player.h) or @x-@h is not(player.x + player.h)and(player.x - player.h) false
-        return true if @y is (player.y + player.w)and(player.y - player.w) or @y-@w is(player.y + player.w)and(player.y - player.w) true
-        return false if @y is not (player.y + player.w)and(player.y - player.w) or @y-@w is not(player.y + player.w)and(player.y - player.w) false
+        return true if @x > (player.x + player.h)and @x < (player.x - player.h) or @x-@h < (player.x + player.h)and @x > (player.x - player.h)
+        return false if @x < (player.x + player.h)and @x > (player.x - player.h) or @x-@h > (player.x + player.h)and @x < (player.x - player.h)
+        return true if @y > (player.y + player.w)and @y < (player.y - player.w) or @y-@w < (player.y + player.w)and @y > (player.y - player.w)
+        return false if @y < (player.y + player.w)and @y > (player.y - player.w) or @y-@w > (player.y + player.w)and @y < (player.y - player.w)
