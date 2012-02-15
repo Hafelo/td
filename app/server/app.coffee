@@ -26,13 +26,13 @@ class Player
         @y = 0 if @y < 0
     down:->
         @y += @speed
-        @y = 1-@w if @y > 1-@w
+        @y = 1-@h if @y > 1-@h
     left:->
         @x -= @speed
         @x = 0 if @x < 0
     right:->
         @x += @speed
-        @x = 1-@h if @x > 1-@h
+        @x = 1-@w if @x > 1-@w
     collides: (players)->
         return true if @x > (player.x + player.h)and @x < (player.x - player.h) or @x-@h < (player.x + player.h)and @x > (player.x - player.h)
         return false if @x < (player.x + player.h)and @x > (player.x - player.h) or @x-@h > (player.x + player.h)and @x < (player.x - player.h)
