@@ -14,7 +14,7 @@ exports.actions =
     down: (cb)-> players[@session.id].down()
     left: (cb)-> players[@session.id].left()
     right: (cb)-> players[@session.id].right()
-    color: (team, cb)-> players[@session.id].team = team
+    collides: (cb)-> players[@session.id].collide()
 
 class Player
     constructor:->
@@ -38,7 +38,7 @@ class Player
         @x += @speed
         @x = -@w if @x > 1 #go off the right, appear at the left
     collides: (players)->
-        return true if @x > (player.x + player.h)and @x < (player.x - player.h) or @x-@h < (player.x + player.h)and @x > (player.x - player.h)
-        return false if @x < (player.x + player.h)and @x > (player.x - player.h) or @x-@h > (player.x + player.h)and @x < (player.x - player.h)
-        return true if @y > (player.y + player.w)and @y < (player.y - player.w) or @y-@w < (player.y + player.w)and @y > (player.y - player.w)
-        return false if @y < (player.y + player.w)and @y > (player.y - player.w) or @y-@w > (player.y + player.w)and @y < (player.y - player.w)
+        return false if @x+@w < (player.x) and @x > (player.x + player.w) and @y+@h < (player.y) and @y > (player.y + player.h)
+        #right, left, bottom
+        return true
+        #If not returned false then return true
