@@ -14,7 +14,6 @@ exports.actions =
     down: (cb)-> players[@session.id].down()
     left: (cb)-> players[@session.id].left()
     right: (cb)-> players[@session.id].right()
-    collides: (cb)-> players[@session.id].collide()
 
 class Player
     constructor:->
