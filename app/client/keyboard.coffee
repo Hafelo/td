@@ -1,5 +1,6 @@
 #When a key is pressed down we grab the keyboard event in e
 exports.keyDown = (e)->
+    exports.keyDown=true
     #Set different properties based on the key pressed
     #These can be accessed by any other class with SS.client.keyboard.PROPERTY
     switch e.keyCode
@@ -31,6 +32,7 @@ exports.keyDown = (e)->
     return true #false to capture input and decieve browser
 
 exports.keyUp = (e)->
+    exports.keyUp=true
     switch e.keyCode
         when 39
             exports.right=false
