@@ -37,7 +37,7 @@ class Player
         @x += @speed
         @x = -@w if @x > 1 #go off the right, appear at the left
     collides: (players)->
-        return false if @x+@w < (player.x) and @x > (player.x + player.w) and @y+@h < (player.y) and @y > (player.y + player.h)
+        return false if @x+@w < (player.x) or @x > (player.x + player.w) or @y+@h < (player.y) or @y > (player.y + player.h)
         #right, left, bottom
         return true
         #If not returned false then return true
