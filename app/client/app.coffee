@@ -19,20 +19,14 @@ Game =
             @g.fillStyle = player.team
             @relativeFillRect player.x,player.y,player.w,player.h
     move: ->
-        if SS.client.keyboard.keyDown
-            SS.server.app.up() if SS.client.keyboard.up
-            SS.server.app.down() if SS.client.keyboard.down
-            SS.server.app.left() if SS.client.keyboard.left
-            SS.server.app.right() if SS.client.keyboard.right
-        else
-            p = @players[@id]
-            center = {x: p.x+p.w/2, y: p.y+p.h/2}
-            SS.server.app.left() if @mouseX < center.x
-            SS.server.app.right() if @mouseX > center.x
-            SS.server.app.up() if @mouseY < center.y
-            SS.server.app.down() if @mouseY < center.y
-
-
+        if SS.client.keyboard.up
+            SS.server.app.up()
+        if SS.client.keyboard.down
+            SS.server.app.down()
+        if SS.client.keyboard.left
+            SS.server.app.left()
+        if SS.client.keyboard.right
+            SS.server.app.right()
     #Fill a rectangle with all percentage values
     relativeFillRect:(x,y,w,h)->
         x=Game.relativeX x
@@ -50,10 +44,6 @@ Game =
         @resize()
         every 20, => @draw()
         every 20, => @move()
-
-        document.onmousemove = (e)=>
-            @mouseX = @relativeX e.pageX
-            @mouseY = @relativeY e.pageY
 
 after = (ms, cb) -> setTimeout cb, ms
 every = (ms, cb) -> setInterval cb, ms
